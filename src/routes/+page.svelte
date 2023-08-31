@@ -18,7 +18,7 @@
     <input
         on:input={debounce(() => {
             btn.click();
-        }, 500)}
+        }, 600)}
         name="q"
         type="text"
         value={queryTerm}
