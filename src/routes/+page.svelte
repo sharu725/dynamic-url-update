@@ -40,4 +40,7 @@
     button {
         display: none;
     }
+    input {
+        font-size: 24px;
+    }
 </style>
