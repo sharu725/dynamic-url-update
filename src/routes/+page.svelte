@@ -1,15 +1,13 @@
 <script>
     let searchForm;
     let btn;
+    let timeout;
 
     const debounce = (callback, wait) => {
-        let timeoutId = null;
-        return (...args) => {
-            window.clearTimeout(timeoutId);
-            timeoutId = window.setTimeout(() => {
-                callback.apply(null, args);
-            }, wait);
-        };
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            callback.apply(null, {});
+        }, wait);
     };
 
     export let data;
@@ -18,26 +16,17 @@
 
 <form bind:this={searchForm} method="GET">
     <input
-        on:input={() => btn.click()}
+        on:input={debounce(() => {
+            btn.click();
+        }, 500)}
         name="q"
         type="text"
         value={queryTerm}
         autofocus="true"
+        placeholder="svelte, react, ..."
     />
     <button bind:this={btn}>submit</button>
 </form>
-<!-- <form bind:this={searchForm} method="GET">
-    <input
-        on:input={debounce(() => {
-            btn.click();
-        }, 100)}
-        name="q"
-        type="text"
-        value={queryTerm}
-        autofocus="true"
-    />
-    <button bind:this={btn}>submit</button>
-</form> -->
 
 <ul>
     {#each hits as { title, url }}
