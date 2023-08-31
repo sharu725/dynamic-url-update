@@ -1,6 +1,5 @@
 <script>
     let searchForm;
-    let btn;
     let timeout;
 
     const debounce = (callback, wait) => {
@@ -17,7 +16,7 @@
 <form bind:this={searchForm} method="GET">
     <input
         on:input={debounce(() => {
-            btn.click();
+            searchForm.requestSubmit();
         }, 600)}
         name="q"
         type="text"
@@ -25,7 +24,7 @@
         autofocus="true"
         placeholder="svelte, react, ..."
     />
-    <button bind:this={btn}>submit</button>
+    <button>submit</button>
 </form>
 
 <ul>
@@ -36,9 +35,21 @@
     {/each}
 </ul>
 
+<noscript>
+    <style>
+        button {
+            display: block !important;
+        }
+    </style>
+</noscript>
+
 <style>
+    form {
+        display: flex;
+    }
     button {
         display: none;
+        margin-left: 0.25rem;
     }
     input {
         font-size: 24px;
